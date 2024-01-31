@@ -27,7 +27,7 @@ func update_target(player_position: Vector2):
 
 func update_aiming_direction():
 	var direction_var = get_position().angle_to_point(target)
-	aiming_direction = Vector2(speed, 0.0).rotated(direction)
+	aiming_direction = Vector2(speed, 0.0).rotated(direction_var)
 	
 func aim_at_player():
 	var target_var = target
@@ -49,19 +49,19 @@ func _ready():
 	var mob_types = Array($AnimatedSprite2D.sprite_frames.get_animation_names())
 	$AnimatedSprite2D.animation = mob_types.pick_random()
 	
-	$Player.send_player_position.connect(update_target(Vector2(0.0,0.0)))
-	$HUD.stop_game.connect(on_game_over_despawn())
+	get_node("../Player").send_player_position.connect(update_target)
+	get_node("../HUD").stop_game.connect(on_game_over_despawn)
 	
-	$HUD.start_game.connect(on_start_game())
+	get_node("../HUD").start_game.connect(on_start_game)
 	
-	var target_var = $Player.get_position()
+	var target_var = get_node("../Player").get_position()
 	target = target_var
 	
 	speed = randf_range(min_speed, max_speed)
 	
 	aim_at_player()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var initial_force_divisor = Vector2(INITIAL_FORCE_DIVISOR, INITIAL_FORCE_DIVISOR)
 	var aiming_force_divisor = Vector2(AIMING_FORCE_DIVISOR, AIMING_FORCE_DIVISOR)
 	var aiming_direction_var = aiming_direction / aiming_force_divisor
@@ -69,7 +69,7 @@ func _physics_process(delta):
 	var initial_direction_var = initial_direction / initial_force_divisor
 	apply_force(initial_direction_var)
 	
-func _integrate_forces(state):
+func _integrate_forces(_state):
 	var target_var = target
-	look_at(target)
+	look_at(target_var)
 

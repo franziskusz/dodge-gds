@@ -27,7 +27,7 @@ func start(pos):
 	
 	if is_bot:
 		$BotTimer.set_wait_time(2.0)
-		$BotTimer.time_out.connect(update_bot_direction())
+		$BotTimer.timeout.connect(update_bot_direction)
 		$BotTimer.start()
 
 
@@ -53,8 +53,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
 	
-	$Main/HUD.connect("bot_player_switch", update_bot_mode(false))
-	$Main/HUD.connect("stop_game", despawn())
+	get_node("../HUD").connect("bot_player_switch", update_bot_mode)
+	get_node("../HUD").connect("stop_game", despawn)
 
 
 func _process(delta):
@@ -86,8 +86,8 @@ func _process(delta):
 			$Trail.rotation = PI if velocity.y > 0 else 0	
 		
 		var change = velocity * delta
-		var position = get_global_position() + change
-		var position_clamped = position.clamp(Vector2.ZERO, screen_size)
+		var position_var = get_global_position() + change
+		var position_clamped = position_var.clamp(Vector2.ZERO, screen_size)
 		
 		input_position = position_clamped
 		
@@ -96,7 +96,7 @@ func _process(delta):
 		$AnimatedSprite2D.stop()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var latest_input_position = input_position
 	
 	if player_position != latest_input_position:

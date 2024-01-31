@@ -23,6 +23,7 @@ signal send_stats(second: int, mobs_spawned: int, hits: int, fps: float)
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$FPSTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()
 	$DeathSound.play()
@@ -52,6 +53,8 @@ func _on_StartTimer_timeout():
 	$ScoreTimer.start()
 	$FPSTimer.set_wait_time(1.0)
 	$FPSTimer.start()
+	
+	frames = 0
 	
 	var initial_wave_size = mob_spawns_per_second
 	wave_size = initial_wave_size
@@ -87,24 +90,29 @@ func update_mob_counter(counter: int):
 	
 
 func _on_MobTimer_timeout():
+	print("A wave size "+str(wave_size)) 
 	var wave_size_float = float(wave_size)
 	var spawn_intervall_length_float = float(spawn_intervall_length)
 	var mob_spawns_per_second_float = float(mob_spawns_per_second)
 	
 	var loop_var: float = wave_size_float / spawn_intervall_length_float
 	if loop_var < mob_spawns_per_second_float:
-		wave_size += mob_spawns_per_second
+		var wave_size_var = wave_size + mob_spawns_per_second
+		wave_size = wave_size_var
+		#print("loop var " + str(loop_var)) #debug
+		#print("B wave size "+str(wave_size)) #debug
 	else:
 		var i: int = 0
+		#print("C wave size "+str(wave_size)) #debug
 		while i < wave_size:
-			i = i + 1
+			i += 1
 			spawn_mob()
-	wave_size = mob_spawns_per_second
+		wave_size = mob_spawns_per_second
 
 func spawn_mob():
 	
 	# Create a new instance of the Mob scene.
-	var mob_scene = mob_scene.instantiate()
+	var mob_scene_inst = mob_scene.instantiate()
 
 	# Choose a random location on Path2D.
 	var mob_spawn_location = get_node(^"MobPath/MobSpawnLocation")
@@ -114,7 +122,7 @@ func spawn_mob():
 	#var direction = mob_spawn_location.rotation + PI / 2
 
 	# Set the mob's position to a random location.
-	mob_scene.position = mob_spawn_location.position
+	mob_scene_inst.position = mob_spawn_location.position
 
 	# Add some randomness to the direction.
 	#direction += randf_range(-PI / 4, PI / 4)
@@ -122,7 +130,7 @@ func spawn_mob():
 	
 	var start_target: Vector2 = $Player.position
 	var start_angle: float = mob_spawn_location.position.angle_to_point(start_target)
-	mob_scene.rotation = start_angle
+	mob_scene_inst.rotation = start_angle
 
 	# Choose the velocity for the mob.
 	#var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
@@ -130,7 +138,7 @@ func spawn_mob():
 
 	# Spawn the mob by adding it to the Main scene.
 	
-	add_child(mob_scene)
+	add_child(mob_scene_inst)
 	
 	update_mob_counter(1)
 
@@ -152,15 +160,17 @@ func update_spawn_intervall_length(slider_value: float):
 	
 	
 func _ready():
-	$HUD.safe_mode_switch.connect(switch_safe_mode(true))
+	$HUD.safe_mode_switch.connect(switch_safe_mode)
 	
-	$HUD/MobSpawnSlider.value_changed.connect(update_mob_spawn_rate(1))
+	$HUD.stop_game.connect(game_over)
 	
-	$HUD/SpawnInterVallSlider.value_changed.connect(update_spawn_intervall_length(1))
+	$HUD/MobSpawnSlider.value_changed.connect(update_mob_spawn_rate)
 	
-	$Player.send_player_position.connect(update_player_position($StartPosition.position))
+	$HUD/SpawnIntervallSlider.value_changed.connect(update_spawn_intervall_length)
+	
+	$Player.send_player_position.connect(update_player_position)
 
-func _process(delta):
+func _process(_delta):
 	frames +=1
 
 

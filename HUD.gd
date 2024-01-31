@@ -16,7 +16,9 @@ signal mob_spawn_rate(mob_spawn_rate: int)
 func show_message(text):
 	$MessageLabel.text = text
 	$MessageLabel.show()
+	$MessageTimer.set_wait_time(2.0)
 	$MessageTimer.start()
+
 
 
 func show_game_over():
@@ -36,7 +38,7 @@ func update_hits(hits: int):
 	var label_text = "hits: "
 	$HitLabel.text = label_text + str(hits)
 	
-func update_mob_counter(mob_counter: int):
+func update_mob_counter_label(mob_counter: int):
 	var label_text = "active mobs: "
 	$MobLabel.text = label_text + str(mob_counter)
 
@@ -73,12 +75,12 @@ func on_safe_mode_switch():
 	$SafeModeSwitch.text = "safe_mode: " + str(is_safe)
 	
 func init_bot_player_switch():
-	$BotPlayerSwitch.connect("pressed", on_bot_player_switch())
+	$BotPlayerSwitch.connect("pressed", on_bot_player_switch)
 	
 func on_bot_player_switch():
 	is_bot_player = !is_bot_player
 	emit_signal("bot_player_switch", is_bot_player)
-	$BotPlayerSwitch.text = "bot_player: "+ str(is_bot_player)
+	$BotPlayerSwitch.text = "bot player: "+ str(is_bot_player)
 	
 func init_mob_spawn_slider():
 	$MobSpawnSlider.set_use_rounded_values(true)
@@ -86,7 +88,7 @@ func init_mob_spawn_slider():
 	$MobSpawnSlider.set_max(100.0)
 	$MobSpawnSlider.set_ticks_on_borders(true)
 	
-	$MobSpawnSlider.value_changed.connect(update_mob_spawn_label(1.0))
+	$MobSpawnSlider.value_changed.connect(update_mob_spawn_label)
 	update_mob_spawn_label(1.0)
 	
 func update_mob_spawn_label(slider_value: float):
@@ -99,8 +101,8 @@ func init_spawn_intervall_slider():
 	$SpawnIntervallSlider.set_max(60.0)
 	$SpawnIntervallSlider.set_ticks_on_borders(true)
 	
-	$SpawnIntervallSlider.value_changed.connect(update_mob_spawn_label(1.0))
-	update_mob_spawn_label(1.0)
+	$SpawnIntervallSlider.value_changed.connect(update_spawn_intervall_slider)
+	update_spawn_intervall_slider(1.0)
 	
 func update_spawn_intervall_slider(slider_value: float):
 	var spawn_intervall_length = int(slider_value)
@@ -110,6 +112,7 @@ func _ready():
 	init_mob_spawn_slider()
 	init_spawn_intervall_slider()
 	init_bot_player_switch()
+	$MessageTimer.timeout.connect(_on_MessageTimer_timeout)
 	
 	
 	
