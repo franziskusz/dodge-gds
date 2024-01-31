@@ -3,15 +3,15 @@ extends Node
 const FPS_LOWER_LIMIT: float = 20.0
 @export var mob_scene: PackedScene
 @export var player_position: Vector2
-@export var is_safe: bool
-var score: int
-var hits: int
-var mob_counter: int
-var frames: int
-var fps: float
-var mob_spawns_per_second: int
-var spawn_intervall_length: int
-var wave_size: int
+@export var is_safe: bool = true
+var score: int = 0
+var hits: int = 0
+var mob_counter: int = 0
+var frames: int = 0
+var fps: float = 0.0
+var mob_spawns_per_second: int = 1
+var spawn_intervall_length: int = 1
+var wave_size: int = 0
 
 signal safe_mode_shutdown()
 
