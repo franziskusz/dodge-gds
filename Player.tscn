@@ -54,6 +54,7 @@ scale_curve = SubResource("6")
 color_ramp = SubResource("4")
 
 [node name="Player" type="Area2D"]
+visible = false
 z_index = 10
 script = ExtResource("1")
 
@@ -71,5 +72,7 @@ amount = 10
 process_material = SubResource("7")
 texture = ExtResource("2")
 speed_scale = 2.0
+
+[node name="BotTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
