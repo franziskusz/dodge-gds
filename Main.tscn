@@ -9,9 +9,9 @@
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -2.97915, -2, 0, 0, 0, 0, 1899.7, 11, 0, 0, 0, 0, 1899.7, 1076, 0, 0, 0, 0, 1.9861, 1062, 0, 0, 0, 0, -2.97915, -2, 0, 0, 0, 0, -2.97915, 2)
 }
-point_count = 5
+point_count = 6
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
@@ -28,7 +28,6 @@ color = Color(0.219608, 0.372549, 0.380392, 1)
 [node name="Player" parent="." instance=ExtResource("3")]
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.001
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -37,12 +36,15 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+position = Vector2(958, 664)
 
 [node name="MobPath" type="Path2D" parent="."]
+scale = Vector2(1.007, 1)
 curve = SubResource("1")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(-2.97915, -2)
+rotation = 0.00683237
 
 [node name="HUD" parent="." instance=ExtResource("4")]
 
