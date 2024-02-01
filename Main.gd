@@ -90,7 +90,7 @@ func update_mob_counter(counter: int):
 	
 
 func _on_MobTimer_timeout():
-	print("A wave size "+str(wave_size)) 
+	#print("A wave size "+str(wave_size)) #debug
 	var wave_size_float = float(wave_size)
 	var spawn_intervall_length_float = float(spawn_intervall_length)
 	var mob_spawns_per_second_float = float(mob_spawns_per_second)
@@ -115,7 +115,7 @@ func spawn_mob():
 	var mob_scene_inst = mob_scene.instantiate()
 
 	# Choose a random location on Path2D.
-	var mob_spawn_location = get_node(^"MobPath/MobSpawnLocation")
+	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
 	mob_spawn_location.progress = randi()
 
 	# Set the mob's direction perpendicular to the path direction.
