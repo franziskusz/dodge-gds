@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Dodge the Creeps"
+config/name="DodgeGDS"
 config/description="This is a simple game where your character must move
 and avoid the enemies for as long as possible.
 

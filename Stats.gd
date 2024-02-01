@@ -26,7 +26,7 @@ func update_stats(main_second: int, main_mobs_spawned, main_hits: int, main_fps:
 	print("ts, second, mobs, hits, fps, memory " + str(timestamp_nanos) + " " + str(second) + " " + str(mobs_spawned) + " " + str(fps) + " " + str(memory_static))
 	
 func write_to_csv():
-	var file = FileAccess.open("stats/stats.csv", FileAccess.READ_WRITE) #open file without truncating
+	var file = FileAccess.open("user://stats/stats.csv", FileAccess.READ_WRITE) #open file without truncating
 	
 	file.seek_end(0) #move cursor to the end
 	
