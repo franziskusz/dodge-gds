@@ -27,6 +27,7 @@ func update_stats(main_second: int, main_mobs_spawned, main_hits: int, main_fps:
 	
 func write_to_csv():
 	var file = FileAccess.open("user://stats/stats.csv", FileAccess.READ_WRITE) #open file without truncating
+	#use FileAccess.WRITE_READ or .WRITE if file is ought to be truncated with every run
 	
 	file.seek_end(0) #move cursor to the end
 	
@@ -38,9 +39,17 @@ func write_to_csv():
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("stats_ready")
 	get_node("../../Main").send_stats.connect(update_stats)
-	pass # Replace with function body.
+	
+	var user_directory = DirAccess.open("user://")
+	
+	if !user_directory.dir_exists("stats"):
+		user_directory.make_dir("stats")
+		
+	if !FileAccess.file_exists("user://stats/stats.csv"):
+		var _file = FileAccess.open("user://stats/stats.csv", FileAccess.WRITE)
+		
+	print("stats_ready")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
