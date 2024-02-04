@@ -51,8 +51,8 @@ func _on_StartButton_pressed():
 	$StartButton.hide()
 	$StopButton.show()
 	$SafeModeSwitch.hide()
-	$MobSpawnSlider.hide()
-	$SpawnIntervallSlider.hide()
+	#$MobSpawnSlider.hide()
+	#$SpawnIntervallSlider.hide()
 	$BotPlayerSwitch.hide()
 	start_game.emit()
 
@@ -60,8 +60,8 @@ func on_stop_button_pressed():
 	$StartButton.show()
 	$StopButton.hide()
 	$SafeModeSwitch.show()
-	$MobSpawnSlider.show()
-	$SpawnIntervallSlider.show()
+	#$MobSpawnSlider.show()
+	#$SpawnIntervallSlider.show()
 	$BotPlayerSwitch.show()
 	stop_game.emit()
 
@@ -94,6 +94,7 @@ func init_mob_spawn_slider():
 func update_mob_spawn_label(slider_value: float):
 	var mob_spawns = int(slider_value)
 	$MobSpawnSlider/SliderLabel.text = str(mob_spawns)
+	$MobSpawnSlider.release_focus()
 	
 func init_spawn_intervall_slider():
 	$SpawnIntervallSlider.set_use_rounded_values(true)
@@ -107,6 +108,7 @@ func init_spawn_intervall_slider():
 func update_spawn_intervall_slider(slider_value: float):
 	var spawn_intervall_length = int(slider_value)
 	$SpawnIntervallSlider/SliderNumberLabel.text = str(spawn_intervall_length)
+	$SpawnIntervallSlider.release_focus()
 	
 func _ready():
 	init_mob_spawn_slider()
