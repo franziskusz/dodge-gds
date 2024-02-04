@@ -29,6 +29,10 @@ func write_to_csv():
 	var file = FileAccess.open("user://stats/stats.csv", FileAccess.READ_WRITE) #open file without truncating
 	#use FileAccess.WRITE_READ or .WRITE if file is ought to be truncated with every run
 	
+	if file.get_length() == 0:
+		var header = PackedStringArray(["timestamp", "second", "mobs_spawned", "hits", "fps"])
+		file.store_csv_line(header, ",")
+	
 	file.seek_end(0) #move cursor to the end
 	
 	var line = PackedStringArray([str(timestamp_micros), str(second), str(mobs_spawned), str(hits), str(fps)])
