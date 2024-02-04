@@ -6,7 +6,7 @@ var mobs_spawned: int
 var hits: int
 var fps: float
 var memory_static: float
-var timestamp_nanos: int
+var timestamp_micros: int
 
 func update_stats(main_second: int, main_mobs_spawned, main_hits: int, main_fps: float):
 	second = main_second
@@ -19,11 +19,11 @@ func update_stats(main_second: int, main_mobs_spawned, main_hits: int, main_fps:
 	
 	var unix_timestamp_seconds: float
 	unix_timestamp_seconds = Time.get_unix_time_from_system()
-	timestamp_nanos = int(unix_timestamp_seconds * 1000000000)
+	timestamp_micros = int(unix_timestamp_seconds * 1000000)
 	
 	write_to_csv()
 	
-	print("ts, second, mobs, hits, fps, memory " + str(timestamp_nanos) + " " + str(second) + " " + str(mobs_spawned) + " " + str(fps) + " " + str(memory_static))
+	print("ts, second, mobs, hits, fps, memory " + str(timestamp_micros) + " " + str(second) + " " + str(mobs_spawned) + " " + str(fps) + " " + str(memory_static))
 	
 func write_to_csv():
 	var file = FileAccess.open("user://stats/stats.csv", FileAccess.READ_WRITE) #open file without truncating
@@ -31,7 +31,7 @@ func write_to_csv():
 	
 	file.seek_end(0) #move cursor to the end
 	
-	var line = PackedStringArray([str(timestamp_nanos), str(second), str(mobs_spawned), str(hits), str(fps), str(memory_static)])
+	var line = PackedStringArray([str(timestamp_micros), str(second), str(mobs_spawned), str(hits), str(fps)])
 	
 	file.store_csv_line(line, ",")
 	
