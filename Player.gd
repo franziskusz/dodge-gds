@@ -4,7 +4,7 @@ extends Area2D
 @export var player_position: Vector2
 var input_position: Vector2
 var is_bot: bool = false
-var bot_direction: Vector2 = Vector2(-0.5,0.2)
+var bot_direction: Vector2 = Vector2(-0.4,0.4)
 var screen_size: Vector2 # Size of the game window.
 
 
@@ -27,8 +27,8 @@ func start(pos):
 	
 	if is_bot:
 		$BotTimer.set_wait_time(2.0)
-		$BotTimer.timeout.connect(update_bot_direction)
 		$BotTimer.start()
+		bot_direction = Vector2(-0.4,0.4)
 
 
 func despawn():
@@ -49,15 +49,7 @@ func update_bot_direction():
 	else:
 		bot_direction = Vector2.UP
 
-func _ready():
-	screen_size = get_viewport_rect().size
-	hide()
-	
-	get_node("../HUD").connect("bot_player_switch", update_bot_mode)
-	get_node("../HUD").connect("stop_game", despawn)
-
-
-func _process(delta):
+func handle_input(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
 	
 	if is_bot:
@@ -72,9 +64,12 @@ func _process(delta):
 	if Input.is_action_pressed(&"move_up"):
 		velocity.y -= 1
 
-	if velocity.length() > 0:
+	if velocity.length() > 1:
 		velocity = velocity.normalized() * speed
+	elif velocity.length() > 0:
+		velocity = velocity *speed
 		
+	if velocity.length() > 0:
 		if velocity.x != 0:
 			$AnimatedSprite2D.animation = &"right"
 			$AnimatedSprite2D.flip_v = false
@@ -95,8 +90,7 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 
-
-func _physics_process(_delta):
+func move_player():
 	var latest_input_position = input_position
 	
 	if player_position != latest_input_position:
@@ -104,5 +98,20 @@ func _physics_process(_delta):
 		set_global_position(latest_input_position)
 		
 		emit_signal("send_player_position", latest_input_position)
+	
+
+func _ready():
+	screen_size = get_viewport_rect().size
+	hide()
+	
+	get_node("../HUD").connect("bot_player_switch", update_bot_mode)
+	get_node("../HUD").connect("stop_game", despawn)
+	$BotTimer.timeout.connect(update_bot_direction)
+
+
+func _physics_process(delta):
+	handle_input(delta)
+	move_player()
+
 
 
