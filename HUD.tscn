@@ -187,6 +187,37 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_poxll")
 theme_override_font_sizes/font_size = 41
 
+[node name="InitialWaveSlider" type="HSlider" parent="."]
+offset_left = 513.0
+offset_top = 139.0
+offset_right = 1843.0
+offset_bottom = 241.0
+
+[node name="SliderTextLabel" type="Label" parent="InitialWaveSlider"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 301.0
+offset_top = 82.0
+offset_right = -661.0
+offset_bottom = 158.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_poxll")
+theme_override_font_sizes/font_size = 41
+text = "initial wave size"
+
+[node name="SliderNumberLabel" type="Label" parent="InitialWaveSlider"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 663.0
+offset_top = 82.0
+offset_right = -167.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_poxll")
+theme_override_font_sizes/font_size = 41
+
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StopButton" to="." method="on_stop_button_pressed"]
 [connection signal="pressed" from="SafeModeSwitch" to="." method="on_safe_mode_switch"]

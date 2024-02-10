@@ -12,6 +12,7 @@ var fps: float = 0.0
 var mob_spawns_per_second: int = 1
 var spawn_intervall_length: int = 1
 var wave_size: int = 0
+var initial_wave_size: int = 0
 
 signal safe_mode_shutdown()
 
@@ -56,8 +57,13 @@ func _on_StartTimer_timeout():
 	
 	frames = 0
 	
-	var initial_wave_size = mob_spawns_per_second
-	wave_size = initial_wave_size
+	var first_wave_size = mob_spawns_per_second
+	wave_size = first_wave_size
+	
+	var i = initial_wave_size
+	while i > 0:
+		spawn_mob()
+		i -= 1
 	
 func _on_ScoreTimer_timeout():
 	score += 1
@@ -158,6 +164,10 @@ func update_spawn_intervall_length(slider_value: float):
 	var intervall_length = int(slider_value)
 	spawn_intervall_length = intervall_length
 	
+func update_initial_wave_size(slider_value: float):
+	var wave_size = int(slider_value)
+	initial_wave_size = wave_size
+	
 	
 func _ready():
 	$HUD.safe_mode_switch.connect(switch_safe_mode)
@@ -167,6 +177,8 @@ func _ready():
 	$HUD/MobSpawnSlider.value_changed.connect(update_mob_spawn_rate)
 	
 	$HUD/SpawnIntervallSlider.value_changed.connect(update_spawn_intervall_length)
+	
+	$HUD/InitialWaveSlider.value_changed.connect(update_initial_wave_size)
 	
 	$Player.send_player_position.connect(update_player_position)
 

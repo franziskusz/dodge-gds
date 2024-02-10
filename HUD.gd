@@ -53,6 +53,7 @@ func _on_StartButton_pressed():
 	$SafeModeSwitch.hide()
 	#$MobSpawnSlider.hide()
 	#$SpawnIntervallSlider.hide()
+	$InitialWaveSlider.hide()
 	$BotPlayerSwitch.hide()
 	start_game.emit()
 
@@ -62,6 +63,7 @@ func on_stop_button_pressed():
 	$SafeModeSwitch.show()
 	#$MobSpawnSlider.show()
 	#$SpawnIntervallSlider.show()
+	$InitialWaveSlider.show()
 	$BotPlayerSwitch.show()
 	stop_game.emit()
 
@@ -110,10 +112,25 @@ func update_spawn_intervall_slider(slider_value: float):
 	$SpawnIntervallSlider/SliderNumberLabel.text = str(spawn_intervall_length)
 	$SpawnIntervallSlider.release_focus()
 	
+func init_initial_wave_slider():
+	$InitialWaveSlider.set_use_rounded_values(true)
+	$InitialWaveSlider.set_min(0.0)
+	$InitialWaveSlider.set_max(1000.0)
+	$InitialWaveSlider.set_ticks_on_borders(true)
+	
+	$InitialWaveSlider.value_changed.connect(update_initial_wave_slider)
+	update_initial_wave_slider(0.0)
+	
+func update_initial_wave_slider(slider_value: float):
+	var initial_wave_size = int(slider_value)
+	$InitialWaveSlider/SliderNumberLabel.text = str(initial_wave_size)
+	$InitialWaveSlider.release_focus()
+	
 func _ready():
 	init_mob_spawn_slider()
 	init_spawn_intervall_slider()
 	init_bot_player_switch()
+	init_initial_wave_slider()
 	$MessageTimer.timeout.connect(_on_MessageTimer_timeout)
 	
 	
