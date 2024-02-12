@@ -37,8 +37,8 @@ func new_game():
 	mob_counter = 0
 	frames = 0
 	
-	var initial_wave_size = mob_spawns_per_second
-	wave_size = initial_wave_size
+	var wave_size_var = mob_spawns_per_second
+	wave_size = wave_size_var
 	
 	player_position = $StartPosition.position
 	$Player.start($StartPosition.position)
@@ -56,9 +56,6 @@ func _on_StartTimer_timeout():
 	$FPSTimer.start()
 	
 	frames = 0
-	
-	var first_wave_size = mob_spawns_per_second
-	wave_size = first_wave_size
 	
 	var i = initial_wave_size
 	while i > 0:
@@ -165,8 +162,8 @@ func update_spawn_intervall_length(slider_value: float):
 	spawn_intervall_length = intervall_length
 	
 func update_initial_wave_size(slider_value: float):
-	var wave_size = int(slider_value)
-	initial_wave_size = wave_size
+	var wave_size_var = int(slider_value)
+	initial_wave_size = wave_size_var
 	
 	
 func _ready():
