@@ -7,6 +7,7 @@ var hits: int
 var fps: float
 var memory_static: float
 var timestamp_micros: int
+var file_path: String
 
 func update_stats(main_second: int, main_mobs_spawned, main_hits: int, main_fps: float):
 	second = main_second
@@ -26,7 +27,7 @@ func update_stats(main_second: int, main_mobs_spawned, main_hits: int, main_fps:
 	print("ts, second, mobs, hits, fps, memory " + str(timestamp_micros) + " " + str(second) + " " + str(mobs_spawned) + " " + str(fps) + " " + str(memory_static))
 	
 func write_to_csv():
-	var file = FileAccess.open("user://stats/stats.csv", FileAccess.READ_WRITE) #open file without truncating
+	var file = FileAccess.open(file_path, FileAccess.READ_WRITE) #open file without truncating
 	#use FileAccess.WRITE_READ or .WRITE if file is ought to be truncated with every run
 	
 	if file.get_length() == 0:
@@ -38,20 +39,28 @@ func write_to_csv():
 	var line = PackedStringArray([str(timestamp_micros), str(second), str(mobs_spawned), str(hits), str(fps)])
 	
 	file.store_csv_line(line, ",")
+
+func create_file_path_for_current_run():
+	var unix_timestamp_seconds: String
+	unix_timestamp_seconds = str(int(Time.get_unix_time_from_system()))
+	var suffix: String = ".csv"
+	var path: String = "user://stats/godot-gds-" + unix_timestamp_seconds + suffix
+	file_path = path
 	
-	
+	if !FileAccess.file_exists(file_path):
+		var _file = FileAccess.open(file_path, FileAccess.WRITE)	
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("../../Main").send_stats.connect(update_stats)
+	
+	get_node("../../Main/HUD").start_game.connect(create_file_path_for_current_run)
 	
 	var user_directory = DirAccess.open("user://")
 	
 	if !user_directory.dir_exists("stats"):
 		user_directory.make_dir("stats")
 		
-	if !FileAccess.file_exists("user://stats/stats.csv"):
-		var _file = FileAccess.open("user://stats/stats.csv", FileAccess.WRITE)
 		
 	print("stats_ready")
 
