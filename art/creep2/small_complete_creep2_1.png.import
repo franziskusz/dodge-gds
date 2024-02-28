@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ftkxr8r4qghp"
-path="res://.godot/imported/playerGrey_walk1.png-c4773fe7a7bf85d7ab732eb4458c2742.ctex"
+uid="uid://diygbdsst0qg"
+path="res://.godot/imported/small_complete_creep2_1.png-8224c1e55dd81376311a3e73f7c10c56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/playerGrey_walk1.png"
-dest_files=["res://.godot/imported/playerGrey_walk1.png-c4773fe7a7bf85d7ab732eb4458c2742.ctex"]
+source_file="res://art/creep2/small_complete_creep2_1.png"
+dest_files=["res://.godot/imported/small_complete_creep2_1.png-8224c1e55dd81376311a3e73f7c10c56.ctex"]
 
 [params]
 

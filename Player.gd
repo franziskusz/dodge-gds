@@ -75,10 +75,12 @@ func handle_input(delta):
 			$AnimatedSprite2D.flip_v = false
 			$Trail.rotation = 0
 			$AnimatedSprite2D.flip_h = velocity.x < 0
-		elif velocity.y != 0:
+		elif velocity.y < 0:
 			$AnimatedSprite2D.animation = &"up"
-			$AnimatedSprite2D.flip_v = velocity.y > 0
-			$Trail.rotation = PI if velocity.y > 0 else 0	
+			$Trail.rotation = 0	
+		elif velocity.y > 0:
+			$AnimatedSprite2D.animation = &"down"
+			$Trail.rotation = 0
 		
 		var change = velocity * delta
 		var position_var = get_global_position() + change

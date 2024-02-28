@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://booij5t7h4efb"
-path="res://.godot/imported/enemyWalking_2.png-67c480ed60c35e95f5acb0436246b935.ctex"
+uid="uid://baebwi77g5a0q"
+path="res://.godot/imported/small_complete_creep1_1.png-0dffd7bb1f7f75088b67fb340848060f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/enemyWalking_2.png"
-dest_files=["res://.godot/imported/enemyWalking_2.png-67c480ed60c35e95f5acb0436246b935.ctex"]
+source_file="res://art/creep1/small_complete_creep1_1.png"
+dest_files=["res://.godot/imported/small_complete_creep1_1.png-0dffd7bb1f7f75088b67fb340848060f.ctex"]
 
 [params]
 

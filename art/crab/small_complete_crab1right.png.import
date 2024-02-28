@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://couyhcegeihme"
-path="res://.godot/imported/playerGrey_walk2.png-34d2d916366100182d08037c51884043.ctex"
+uid="uid://d3wmutipi5j7j"
+path="res://.godot/imported/small_complete_crab1right.png-958cc36f5cf3f0874ca04f20fadbbd6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/playerGrey_walk2.png"
-dest_files=["res://.godot/imported/playerGrey_walk2.png-34d2d916366100182d08037c51884043.ctex"]
+source_file="res://art/crab/small_complete_crab1right.png"
+dest_files=["res://.godot/imported/small_complete_crab1right.png-958cc36f5cf3f0874ca04f20fadbbd6f.ctex"]
 
 [params]
 

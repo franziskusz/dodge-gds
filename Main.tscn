@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyfwty2q3rdse"]
+[gd_scene load_steps=12 format=3 uid="uid://cyfwty2q3rdse"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://rkdnhqgf2hpj" path="res://Mob.tscn" id="2"]
@@ -7,12 +7,28 @@
 [ext_resource type="AudioStream" uid="uid://q2pf4fr8d0ks" path="res://art/House In a Forest Loop.ogg" id="5"]
 [ext_resource type="AudioStream" uid="uid://dw26fpygeag8o" path="res://art/gameover.wav" id="6"]
 [ext_resource type="Script" path="res://Stats.gd" id="7_xgrqd"]
+[ext_resource type="Texture2D" uid="uid://b8es35qcdwk2c" path="res://art/background/background1.png" id="8_0saoc"]
+[ext_resource type="Texture2D" uid="uid://8kj3qkdc3o2e" path="res://art/background/background2.png" id="9_4htc5"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -2.97915, -2, 0, 0, 0, 0, 1899.7, 11, 0, 0, 0, 0, 1899.7, 1076, 0, 0, 0, 0, 1.9861, 1062, 0, 0, 0, 0, -2.97915, -2, 0, 0, 0, 0, -2.97915, 2)
 }
 point_count = 6
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3wnxy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_0saoc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4htc5")
+}],
+"loop": true,
+"name": &"switch",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
@@ -59,6 +75,11 @@ stream = ExtResource("6")
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("7_xgrqd")
+
+[node name="Background" type="AnimatedSprite2D" parent="."]
+position = Vector2(962, 538)
+sprite_frames = SubResource("SpriteFrames_3wnxy")
+animation = &"switch"
 
 [connection signal="safe_mode_shutdown" from="." to="HUD" method="on_stop_button_pressed"]
 [connection signal="hit" from="Player" to="." method="on_hit_count"]

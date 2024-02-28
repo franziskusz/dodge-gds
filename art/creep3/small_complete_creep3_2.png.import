@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4yyoafu8bi0q"
-path="res://.godot/imported/playerGrey_up1.png-6bd114d0a6beac91f48e3a7314d44564.ctex"
+uid="uid://bnslbe8b4ijgg"
+path="res://.godot/imported/small_complete_creep3_2.png-23f0c570cfe9533dcdabd9890561456b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/playerGrey_up1.png"
-dest_files=["res://.godot/imported/playerGrey_up1.png-6bd114d0a6beac91f48e3a7314d44564.ctex"]
+source_file="res://art/creep3/small_complete_creep3_2.png"
+dest_files=["res://.godot/imported/small_complete_creep3_2.png-23f0c570cfe9533dcdabd9890561456b.ctex"]
 
 [params]
 
