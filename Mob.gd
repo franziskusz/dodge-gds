@@ -11,8 +11,14 @@ var velocity: Vector2 = Vector2(0.0, 0.0)
 var target: Vector2 = Vector2(0.0, 0.0)
 var aiming_direction: Vector2 = Vector2(0.0, 0.0)
 var initial_direction: Vector2 = Vector2(0.0, 0.0)
+var has_weight: bool = false
+var weight: float = 50.0
 
 signal despawned() #deprecated
+
+func set_weight(has_weight_arg: bool, weight_arg: float):
+	has_weight = has_weight_arg
+	weight = weight_arg
 
 func _on_VisibilityNotifier2D_screen_exited():
 	aim_at_player()
@@ -43,6 +49,18 @@ func aim_at_player():
 
 func on_game_over_despawn():
 	queue_free()
+	
+func lift_weight():
+	var radius: float = 10.0
+	var count = int(weight)
+	var countf = weight
+	var weight_direction = aiming_direction
+	
+	for n in range(count):
+		var x = sin(n/countf * 360.0)*radius
+		var y = cos(n/countf * 360.0)*radius
+		var weight_target = Vector2(x,y)*weight_direction / 30.0
+		draw_line(Vector2(0.0, 0.0), weight_target, Color(255, 0, 0), 1,false)
 
 func _ready():
 	$AnimatedSprite2D.play()
@@ -53,6 +71,8 @@ func _ready():
 	get_node("../HUD").stop_game.connect(on_game_over_despawn)
 	
 	get_node("../HUD").start_game.connect(on_start_game)
+	
+	get_node("..").send_weight.connect(set_weight)
 	
 	var target_var = get_node("../Player").get_position()
 	target = target_var
@@ -72,4 +92,12 @@ func _physics_process(_delta):
 func _integrate_forces(_state):
 	var target_var = target
 	look_at(target_var)
-
+	
+	
+func _process(_delta):
+	if has_weight:
+		queue_redraw()
+		
+func _draw():
+	if has_weight:
+		lift_weight()

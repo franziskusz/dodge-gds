@@ -2,10 +2,13 @@ extends CanvasLayer
 
 var is_safe: bool = true
 var is_bot_player: bool = false
+var has_weight: bool = false
 
 signal start_game
 
 signal stop_game
+
+signal weight_switch(has_weight: bool)
 
 signal safe_mode_switch(is_safe: bool)
 
@@ -51,6 +54,8 @@ func _on_StartButton_pressed():
 	$StartButton.hide()
 	$StopButton.show()
 	$SafeModeSwitch.hide()
+	$WeightSwitch.hide()
+	$WeightSlider.hide()
 	#$MobSpawnSlider.hide()
 	#$SpawnIntervallSlider.hide()
 	$InitialWaveSlider.hide()
@@ -61,6 +66,9 @@ func on_stop_button_pressed():
 	$StartButton.show()
 	$StopButton.hide()
 	$SafeModeSwitch.show()
+	$WeightSwitch.show()
+	if has_weight:
+		$WeightSlider.show()
 	#$MobSpawnSlider.show()
 	#$SpawnIntervallSlider.show()
 	$InitialWaveSlider.show()
@@ -70,6 +78,19 @@ func on_stop_button_pressed():
 
 func _on_MessageTimer_timeout():
 	$MessageLabel.hide()
+	
+func init_weight_switch():
+	$WeightSwitch.connect("pressed", on_weight_switch)
+	
+func on_weight_switch():
+	has_weight = !has_weight
+	emit_signal("weight_switch", has_weight)
+	$WeightSwitch.text = "add weight " + str(has_weight)
+	
+	if has_weight:
+		$WeightSlider.show()
+	else:
+		$WeightSlider.hide()
 
 func on_safe_mode_switch():
 	is_safe = !is_safe
@@ -126,11 +147,28 @@ func update_initial_wave_slider(slider_value: float):
 	$InitialWaveSlider/SliderNumberLabel.text = str(initial_wave_size)
 	$InitialWaveSlider.release_focus()
 	
+func init_weight_slider():
+	$WeightSlider.set_use_rounded_values(true)
+	$WeightSlider.set_min(1.0)
+	$WeightSlider.set_max(1000.0)
+	$WeightSlider.set_ticks_on_borders(true)
+	
+	$WeightSlider.value_changed.connect(update_weight_number_label)
+	update_weight_number_label(50.0);
+	$WeightSlider.hide()
+	
+func update_weight_number_label(slider_value: float):
+	var weight = int(slider_value)
+	$WeightSlider/SliderNumberLabel.text = str(weight)
+	$WeightSlider.release_focus()
+	
 func _ready():
 	init_mob_spawn_slider()
 	init_spawn_intervall_slider()
 	init_bot_player_switch()
 	init_initial_wave_slider()
+	init_weight_switch()
+	init_weight_slider()
 	$MessageTimer.timeout.connect(_on_MessageTimer_timeout)
 	
 	

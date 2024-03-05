@@ -13,12 +13,16 @@ var mob_spawns_per_second: int = 1
 var spawn_intervall_length: int = 1
 var wave_size: int = 0
 var initial_wave_size: int = 0
+var mob_has_weight: bool = false
+var mob_weight: float = 50.0
 
 signal safe_mode_shutdown()
 
 signal send_player_position(player_position: Vector2)
 
 signal send_stats(second: int, mobs_spawned: int, hits: int, fps: float)
+
+signal send_weight(mob_has_weight: bool, mob_weight: float)
 
 
 func game_over():
@@ -134,6 +138,8 @@ func spawn_mob():
 	var start_target: Vector2 = $Player.position
 	var start_angle: float = mob_spawn_location.position.angle_to_point(start_target)
 	mob_scene_inst.rotation = start_angle
+	
+	emit_signal("send_weight", mob_has_weight, mob_weight)
 
 	# Choose the velocity for the mob.
 	#var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
@@ -149,6 +155,12 @@ func switch_safe_mode(safe_mode: bool):
 	is_safe = safe_mode
 	var is_safe_string = str(is_safe)
 	print("safemode: " + is_safe_string)
+
+func switch_mob_weight(has_weight_arg: bool):
+	mob_has_weight = has_weight_arg
+
+func update_mob_weight(slider_value: float):
+	mob_weight = slider_value
 	
 func update_player_position(player_position_arg: Vector2):
 	player_position = player_position_arg
@@ -170,6 +182,10 @@ func _ready():
 	$HUD.safe_mode_switch.connect(switch_safe_mode)
 	
 	$HUD.stop_game.connect(game_over)
+	
+	$HUD.weight_switch.connect(switch_mob_weight)
+	
+	$HUD/WeightSlider.value_changed.connect(update_mob_weight)
 	
 	$HUD/MobSpawnSlider.value_changed.connect(update_mob_spawn_rate)
 	
