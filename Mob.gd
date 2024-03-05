@@ -62,7 +62,7 @@ func lift_weight():
 		var x = sin(n/countf * 360.0)*radius
 		var y = cos(n/countf * 360.0)*radius
 		var weight_target = Vector2(x,y)*weight_direction / 30.0
-		draw_line(Vector2(0.0, 0.0), weight_target, Color(255, 0, 0), 1,false)
+		draw_line(Vector2(0.0, 0.0), weight_target, Color(0.7, 0.2, 0.0, 0.5), 1,false)
 
 func _ready():
 	$AnimatedSprite2D.play()
