@@ -139,7 +139,7 @@ func spawn_mob():
 	var start_angle: float = mob_spawn_location.position.angle_to_point(start_target)
 	mob_scene_inst.rotation = start_angle
 	
-	emit_signal("send_weight", mob_has_weight, mob_weight)
+	
 
 	# Choose the velocity for the mob.
 	#var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
@@ -148,6 +148,7 @@ func spawn_mob():
 	# Spawn the mob by adding it to the Main scene.
 	
 	add_child(mob_scene_inst)
+	emit_signal("send_weight", mob_has_weight, mob_weight)
 	
 	update_mob_counter(1)
 
