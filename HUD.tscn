@@ -68,8 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_poxll")
 theme_override_font_sizes/font_size = 60
-text = "Dodge the
-Creeps"
+text = "DodgeGDS"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="."]
