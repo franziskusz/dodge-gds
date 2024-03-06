@@ -11,8 +11,8 @@ Language: GDScript
 Renderer: Vulkan Mobile
 
 The evaluation project consists of four Repositories:
-- [this](https://github.com/franziskusz/dodge-gdscript)
-- [Rust Version](https://github.com/franziskusz/dodge-rust)
+- [this](https://github.com/franziskusz/dodge-gds)
+- [Rust Version](https://github.com/franziskusz/dodge-r)
 - [process-logger](https://github.com/franziskusz/process-logger)
 - [python-pandas-plotter](https://github.com/franziskusz/pandas-plotter)
 
