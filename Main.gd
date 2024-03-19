@@ -14,7 +14,7 @@ var spawn_intervall_length: int = 1
 var wave_size: int = 0
 var initial_wave_size: int = 0
 var mob_has_weight: bool = false
-var mob_weight: float = 50.0
+var mob_weight: float = 1.0
 
 signal safe_mode_shutdown()
 

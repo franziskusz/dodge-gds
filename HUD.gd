@@ -85,7 +85,7 @@ func init_weight_switch():
 func on_weight_switch():
 	has_weight = !has_weight
 	emit_signal("weight_switch", has_weight)
-	$WeightSwitch.text = "add weight " + str(has_weight)
+	$WeightSwitch.text = "add calculations " + str(has_weight)
 	
 	if has_weight:
 		$WeightSlider.show()
@@ -154,7 +154,7 @@ func init_weight_slider():
 	$WeightSlider.set_ticks_on_borders(true)
 	
 	$WeightSlider.value_changed.connect(update_weight_number_label)
-	update_weight_number_label(50.0);
+	update_weight_number_label(1.0);
 	$WeightSlider.hide()
 	
 func update_weight_number_label(slider_value: float):
