@@ -11,6 +11,7 @@ Language: GDScript
 Renderer: Vulkan Mobile
 
 The evaluation project consists of four Repositories:
+- [overview repository](https://github.com/franziskusz/gdext-evaluation) (contains raw data, results and a description of the evaluation process)
 - [this](https://github.com/franziskusz/dodge-gds)
 - [Rust Version](https://github.com/franziskusz/dodge-r)
 - [process-logger](https://github.com/franziskusz/process-logger)
@@ -52,22 +53,10 @@ If the prebuild executables should not work for you, you can build the project f
 8. Select `Add..` at the top/center to add a `Preset` for your Operating System (This might require an additional autmatic download)
 9. Select `Export Project` at the bottom and chose a name and target directory, deselect `Export With Debug` and click on `Save`
 
-## How To Test
-The whole testing process:
-1. Chose scaling settings that suit your need or interest.
-2. Start the process-logger entering the the name of process you wish to start with (DodgeR or DodgeGDS for this purpose).
-3. Start the corresponding Dodge Version.
-4. Run it with the chosen settings for the desired time or until it shuts down because of the fps limit.
-5. Stop the process logger.
-6. Repeat 2-5 as many times as you want to get average values.
-7. Repeat 2-6 for the other Dodge Version.
-8. Collect the .csv results in four separate folders (eg. /dodge-r-godot/, /dodge-r-process/, /dodge-gds-godot/, /dodge-gds-process/).
-9. Invoke the python pandas script with the four folders as arguments to calculate the arithmetic mean and plot it as well as the difference.
 
 ## Notes
-- As said before, I am new to Godot and Rust. This whole project is also a learning experience for me. If the way some things are implemented gives you headaches, I am sorry. I am open for any kind of criticism.
+- I am new to Godot and Rust. This whole project is also a learning experience for me. If the way some things are implemented gives you headaches, I apologize. I am open for any kind of criticism.
 - The additional calculation workload is based on [godot-rust-benchmark](https://github.com/extrawurst/godot-rust-benchmark/tree/main)
-
 
 
 ## Screenshots
