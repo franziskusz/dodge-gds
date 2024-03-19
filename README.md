@@ -39,6 +39,19 @@ As a result there are now two versions of basically the same game or benchmark a
 
 Both applications write performance logs to timestamped .csv files within the `/app_userdata/` folder. See [godot file paths](https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html) for details.
 
+## Setup
+If the prebuild executables should not work for you, you can build the project from source with the following steps:
+1. [Download Godot 4.2](https://godotengine.org/download/archive/4.2-stable/)
+2. Clone this repository by opening a shell and entering:
+   - `git clone git@github.com:franziskusz/dodge-gds.git` (requires having a ssh key setup)
+   - or `git clone https://github.com/franziskusz/dodge-gds.git` 
+4. Change to the just cloned repository directory with `cd dodge-gds` (Unix)
+5. Open the `dodge-the-creeps/godot/project.godot` file by double clicking it.
+6. With entering `command b` or clicking the triangle on the top right you can run the project within the editor in debug mode
+7. In the menu select `Project -> Export...` to export
+8. Select `Add..` at the top/center to add a `Preset` for your Operating System (This might require an additional autmatic download)
+9. Select `Export Project` at the bottom and chose a name and target directory, deselect `Export With Debug` and click on `Save`
+
 ## How To Test
 The whole testing process:
 1. Chose scaling settings that suit your need or interest.
